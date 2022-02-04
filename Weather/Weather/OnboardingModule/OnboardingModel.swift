@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-class OnboardingModel: NSObject {
+final class OnboardingModel: NSObject {
     
     override init() {
         super.init()

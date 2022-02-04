@@ -58,7 +58,7 @@ final class OnboardingViewController: UIViewController {
         paragraphStyle.lineHeightMultiple = 1.21
 
         label.attributedText = NSMutableAttributedString(
-            string: "Чтобы получить более точные прогнозы погоды во время движения или путешествия",
+            string: "Чтобы получить более точные прогнозы погоды во время движения или путешествия.",
             attributes: [NSAttributedString.Key.kern : 0.14,
                          NSAttributedString.Key.paragraphStyle : paragraphStyle]
         )
@@ -78,7 +78,7 @@ final class OnboardingViewController: UIViewController {
         paragraphStyle.lineHeightMultiple = 1.21
 
         label.attributedText = NSMutableAttributedString(
-            string: "Вы можете изменить свой выбор в любое время из меню приложения",
+            string: "Вы можете изменить свой выбор в любое время из меню приложения.",
             attributes: [NSAttributedString.Key.kern : 0.28,
                          NSAttributedString.Key.paragraphStyle : paragraphStyle]
         )
@@ -95,7 +95,7 @@ final class OnboardingViewController: UIViewController {
         let button = UIButton()
 
         button.setTitle("НЕТ, Я БУДУ ДОБАВЛЯТЬ ЛОКАЦИИ", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 16)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.titleLabel?.textAlignment = .right
         button.tintColor = .white
         button.backgroundColor = .clear
@@ -112,12 +112,28 @@ final class OnboardingViewController: UIViewController {
         button.tintColor = .white
         button.setTitle("ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ  УСТРОЙСТВА", for: .normal)
         button.layer.cornerRadius = 10
-        button.titleLabel?.font = .systemFont(ofSize: 12)
         button.titleLabel?.textAlignment = .center
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(agreeButtonDidTap), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
+    }()
+    
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    private let contentView: UIStackView = {
+        let view = UIStackView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
     }()
         
     override func viewWillLayoutSubviews() {
@@ -129,16 +145,29 @@ final class OnboardingViewController: UIViewController {
     private func setupViews() {
         self.view.backgroundColor = UIColor(red: 0.125, green: 0.306, blue: 0.78, alpha: 1)
         
-        self.view.addSubview(image)
-        self.view.addSubview(firstLabel)
-        self.view.addSubview(secondLabel)
-        self.view.addSubview(thirdLabel)
-        self.view.addSubview(disagreeButton)
-        self.view.addSubview(agreeButton)
+        self.view.addSubview(scrollView)
         
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(image)
+        contentView.addSubview(firstLabel)
+        contentView.addSubview(secondLabel)
+        contentView.addSubview(thirdLabel)
+        contentView.addSubview(disagreeButton)
+        contentView.addSubview(agreeButton)
+        
+        scrollView.snp.makeConstraints { make in
+            make.leading.trailing.top.bottom.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.leading.trailing.top.bottom.equalToSuperview()
+            make.trailing.leading.width.equalTo(self.view)
+        }
+                        
         image.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(35)
-            make.top.equalToSuperview().inset(62)
+            make.top.equalToSuperview().inset(20)
             make.height.equalTo(image.snp.width).inset(30)
         }
         
@@ -159,13 +188,22 @@ final class OnboardingViewController: UIViewController {
         
         disagreeButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(17)
-            make.bottom.equalToSuperview().inset(77)
+            make.bottom.equalToSuperview().inset(20)
         }
+        
+        disagreeButton.titleLabel?.snp.makeConstraints({ make in
+            make.leading.trailing.equalToSuperview().inset(5)
+        })
         
         agreeButton.snp.makeConstraints { make in
             make.height.equalTo(40)
             make.trailing.leading.equalToSuperview().inset(17)
             make.bottom.equalTo(disagreeButton.snp.top).inset(-25)
+            make.top.equalTo(thirdLabel.snp.bottom).inset(-40)
+        }
+        
+        agreeButton.titleLabel?.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(5)
         }
         
     }
@@ -175,7 +213,7 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc private func disagreeButtonDidTap() {
-        self.viewModel.pushMainMenu()
+        self.viewModel.pushHomepage()
     }
     
 }

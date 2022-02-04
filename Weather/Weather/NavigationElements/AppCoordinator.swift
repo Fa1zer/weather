@@ -26,13 +26,27 @@ final class AppCoordinator {
         
         viewModel.appCoordinator = self
         
+        self.navigationController.setNavigationBarHidden(true, animated: false)
         self.navigationController.pushViewController(viewController, animated: true)
     }
     
-    func gotToMainMenu() {
-        navigationController.pushViewController(UIViewController(), animated: true)
+    func goToHomepage() {
+        let viewModel = HomepageViewModel()
+        let viewController = HomepageViewController(viewModel: viewModel)
         
-        print("main menu pushed")
+        viewModel.appCoordinator = self
+        
+        self.navigationController.setNavigationBarHidden(false, animated: true)
+        self.navigationController.pushViewController(viewController, animated: true)
+        
+    }
+    
+    func goToTwentyFourHours() {
+        print(#function)
+    }
+    
+    func goToOneHourInformation() {
+        print(#function)
     }
     
 }

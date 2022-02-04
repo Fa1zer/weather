@@ -17,11 +17,11 @@ final class OnboardingViewModel: Coordinatable {
     func getLocation() {
         
         self.model.locationRequest()
-        self.pushMainMenu()
+        self.pushHomepage()
     }
     
-    func pushMainMenu() {
-        self.appCoordinator?.gotToMainMenu()
+    func pushHomepage() {
+        self.appCoordinator?.goToHomepage()
     }
 
 }
