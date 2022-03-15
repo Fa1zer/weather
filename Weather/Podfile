@@ -8,6 +8,7 @@ target 'Weather' do
   # Pods for Weather
 
 pod 'SnapKit'
+pod 'Alamofire', '~> 4.7'
 pod 'RealmSwift'
 
 end

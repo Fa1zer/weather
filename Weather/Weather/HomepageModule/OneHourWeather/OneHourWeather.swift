@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct OneHourWeather {
+struct OneHourWeather: Equatable {
+    
     let time: String
-    let graduation: Int
+    let graduation: Double
     let weather: String
+    
 }

@@ -5,38 +5,85 @@
 //  Created by Artemiy Zuzin on 02.02.2022.
 //
 
-import UIKit
+import Foundation
 
 final class HomepageViewModel: Coordinatable {
     
+    init(dataManager: DataManager) {
+        
+        self.model.dataManager = dataManager
+        
+    }
+    
     var appCoordinator: AppCoordinator?
     
+    var callBack: (() -> Void)? {
+        
+        didSet {
+            
+            self.model.callBack = callBack
+
+        }
+        
+    }
+    
     private let model = HomepageModel()
-    private var twentyFourHoursWeather = [OneHourWeather(time: "12:00", graduation: 13, weather: "Frame")]
-    private var twentyFiveDayWether = [OneDayWeather(date: "17/04",
-                                                     humidityImage: "Frame-3",
-                                                     humidityProcent: 57,
-                                                     graduationsDifference: "4°-11°",
-                                                     information: "Преймущественно облачно")]
+    private let userDefaults = UserDefaults.standard
     
-    func getTwentyFourHoursWeather() -> [OneHourWeather] {
-        return twentyFourHoursWeather
+    func getCitysCount() -> Int {
+        return self.model.citysCount()
     }
     
-    func getTwentyFiveDaysWeather() -> [OneDayWeather] {
-        return twentyFiveDayWether
+    func isMetric() -> Bool {
+        return self.userDefaults.string(forKey: "speed") == "Km" ? true : false
     }
     
-    func pushTwentyFourHours() {
-        appCoordinator?.goToTwentyFourHours()
+    func getCityNames(index: Int) -> String {
+        return self.model.cityName(index: index)
     }
     
-    func openTwentyFiveDays() {
-        print(#function)
+    func getTwentyFourHoursWeather(index: Int) -> [OneHourWeather] {
+        return self.model.twentyFourHoursWeatherRequest(index: index)
     }
     
-    func pushOneHourInformation() {
-        appCoordinator?.goToOneHourInformation()
+    func getTwentyFiveDaysWeather(index: Int) -> [OneDayWeather] {
+        return self.model.twentyFiveDaysWeatherRequest(index: index)
+    }
+    
+    func getInformationData(index: Int) -> InformationData {
+        return self.model.informationWeatherRequest(index: index)
+    }
+    
+    func pushTwentyFourHours(index: Int) {
+        self.appCoordinator?.goToTwentyFourHours(index: index)
+    }
+    
+    func pushTwentyFiveDays(index: Int, dateIndex: Int) {        
+        self.appCoordinator?.goToTwentyFiveDays(index: index, dateIndex: dateIndex)
+    }
+    
+    func openSetting() {
+        self.appCoordinator?.goToSettings()
+    }
+    
+    func addCity(cityNamed: String) {
+        
+        DispatchQueue.main.async { [ weak self ] in
+            
+            guard var citys = self?.userDefaults.object(forKey: "citys") as? [String]? else { return }
+            
+            if citys == nil { citys = [] }
+            
+            citys?.append(cityNamed)
+            
+            citys = citys?.sorted { $0 != $1 }
+            
+            self?.userDefaults.set(citys, forKey: "citys")
+            
+            self?.model.newCityDataRequest()
+            
+        }
+        
     }
     
 }

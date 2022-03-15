@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct OneDayWeather {
+struct OneDayWeather: Equatable {
+    
     let date: String
-    let humidityImage: String
     let humidityProcent: Int
     let graduationsDifference: String
     let information: String
+    
 }

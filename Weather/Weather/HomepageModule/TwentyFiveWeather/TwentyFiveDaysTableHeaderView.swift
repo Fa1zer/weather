@@ -50,7 +50,7 @@ final class TwentyFiveDaysTableHeaderView: UIView {
     
     private func setupViews() {
         
-        self.backgroundColor = .clear
+        self.backgroundColor = .white
         
         self.addSubview(everyDayForecastLabel)
         self.addSubview(twentyFiveDaysButton)

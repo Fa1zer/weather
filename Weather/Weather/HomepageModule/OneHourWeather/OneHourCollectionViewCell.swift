@@ -36,6 +36,28 @@ final class OneHourCollectionViewCell: UICollectionViewCell {
         
     }
     
+    var isBlueBackground = false {
+        
+        didSet {
+            
+            if self.isBlueBackground {
+                
+                self.timeLabel.textColor = .white
+                self.graduationLabel.textColor = .white
+                self.backgroundColor = UIColor(red: 0.125, green: 0.306, blue: 0.78, alpha: 1)
+            
+            } else {
+                
+                self.backgroundColor = .white
+                self.graduationLabel.textColor = .black
+                self.timeLabel.textColor = UIColor(red: 0.613, green: 0.592, blue: 0.592, alpha: 1)
+                
+            }
+            
+        }
+        
+    }
+    
     private let stackView: UIStackView = {
         let view = UIStackView()
         
@@ -78,7 +100,6 @@ final class OneHourCollectionViewCell: UICollectionViewCell {
     
     private func setupViews() {
         
-        self.backgroundColor = .white
         self.layer.borderWidth = 0.5
         self.layer.borderColor = UIColor.systemGray.cgColor
         self.layer.cornerRadius = 22
@@ -95,7 +116,7 @@ final class OneHourCollectionViewCell: UICollectionViewCell {
         }
         
         weatherImageView.snp.makeConstraints { make in
-            make.height.equalTo(weatherImageView.snp.width)
+            make.height.width.equalTo(weatherImageView.snp.width)
         }
         
     }

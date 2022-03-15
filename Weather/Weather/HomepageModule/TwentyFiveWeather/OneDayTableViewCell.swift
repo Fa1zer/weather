@@ -28,7 +28,6 @@ final class OneDayTableViewCell: UITableViewCell {
             
             self.dateLabel.text = weather.date
             self.humidityProcentLabel.text = "\(weather.humidityProcent)%"
-            self.humidityImageView.image = UIImage(named: weather.humidityImage)
             self.graduationsDifferenceLabel.text = weather.graduationsDifference
             self.informationLabel.text = weather.information
             
@@ -59,7 +58,7 @@ final class OneDayTableViewCell: UITableViewCell {
     }()
     
     private let humidityImageView: UIImageView = {
-        let view = UIImageView()
+        let view = UIImageView(image: UIImage(named: "Frame-3"))
         
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -90,7 +89,7 @@ final class OneDayTableViewCell: UITableViewCell {
         let label = UILabel()
         
         label.textColor = .black
-        label.textAlignment = .center
+        label.textAlignment = .right
         label.font = .systemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         

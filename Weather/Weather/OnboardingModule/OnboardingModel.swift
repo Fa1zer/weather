@@ -17,6 +17,7 @@ final class OnboardingModel: NSObject {
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
     }
     
+    var dataManager: DataManager?
     var callBack: (() -> Void)?
     
     private let locationManager = CLLocationManager()
@@ -27,7 +28,12 @@ final class OnboardingModel: NSObject {
     }
     
     private func render(location: CLLocation) {
-        print("location found")
+                    
+        self.dataManager?.addLocationCity(lat: Float(location.coordinate.latitude),
+                                         lon: Float(location.coordinate.longitude))
+            
+        self.callBack?()
+            
     }
     
 }

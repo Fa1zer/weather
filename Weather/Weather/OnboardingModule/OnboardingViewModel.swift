@@ -9,15 +9,21 @@ import Foundation
 
 final class OnboardingViewModel: Coordinatable {
     
+    init(dataManager: DataManager) {
+        
+        self.model.dataManager = dataManager
+        
+    }
+    
     private let model = OnboardingModel()
     
     var appCoordinator: AppCoordinator?
-    var callBack: (() -> Void)?
     
     func getLocation() {
-        
+                    
         self.model.locationRequest()
-        self.pushHomepage()
+        self.model.callBack = self.pushHomepage
+        
     }
     
     func pushHomepage() {
