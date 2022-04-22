@@ -31,7 +31,6 @@ final class TwentyFiveDaysTableHeaderView: UIView {
         button.titleLabel?.textAlignment = .right
         button.tintColor = .black
         button.backgroundColor = .clear
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 16)
         
@@ -51,6 +50,8 @@ final class TwentyFiveDaysTableHeaderView: UIView {
     private func setupViews() {
         
         self.backgroundColor = .white
+        
+        self.twentyFiveDaysButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         
         self.addSubview(everyDayForecastLabel)
         self.addSubview(twentyFiveDaysButton)

@@ -33,45 +33,45 @@ final class InformationTableViewCell: UITableViewCell {
                 self.weatherImageView.image = UIImage(named: "Frame-6")
                 self.textWeatherLabel.text = "По ощущениям"
                 
-                self.weatherImageView.snp.makeConstraints { make in
-                    make.height.equalTo(26)
-                }
+//                self.weatherImageView.snp.makeConstraints { make in
+//                    make.height.equalTo(26)
+//                }
                 
             } else if config.row == 1 {
                 
                 self.weatherImageView.image = UIImage(named: "ветер")
                 self.textWeatherLabel.text = "Ветер"
                 
-                self.weatherImageView.snp.makeConstraints { make in
-                    make.height.equalTo(14)
-                }
+//                self.weatherImageView.snp.makeConstraints { make in
+//                    make.height.equalTo(14)
+//                }
                 
             } else if config.row == 2 {
                 
                 self.weatherImageView.image = UIImage(named: "Frame")
                 self.textWeatherLabel.text = "Уф индекс"
                 
-                self.weatherImageView.snp.makeConstraints { make in
-                    make.height.equalTo(27)
-                }
+//                self.weatherImageView.snp.makeConstraints { make in
+//                    make.height.equalTo(27)
+//                }
                 
             } else if config.row == 3 {
                 
                 self.weatherImageView.image = UIImage(named: "Frame-3")
                 self.textWeatherLabel.text = "Дождь"
                 
-                self.weatherImageView.snp.makeConstraints { make in
-                    make.height.equalTo(30)
-                }
+//                self.weatherImageView.snp.makeConstraints { make in
+//                    make.height.equalTo(30)
+//                }
                 
             } else if config.row == 4 {
                 
                 self.weatherImageView.image = UIImage(named: "Frame-4")
                 self.textWeatherLabel.text = "Облачность"
                 
-                self.weatherImageView.snp.makeConstraints { make in
-                    make.height.equalTo(17)
-                }
+//                self.weatherImageView.snp.makeConstraints { make in
+//                    make.height.equalTo(17)
+//                }
                 
             }
             
@@ -122,6 +122,7 @@ final class InformationTableViewCell: UITableViewCell {
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().inset(15)
             make.width.equalTo(24)
+            make.height.lessThanOrEqualTo(26)
         }
         
         textWeatherLabel.snp.makeConstraints { make in

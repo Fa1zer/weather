@@ -127,7 +127,6 @@ final class TwentyFiveDaysViewController: UIViewController {
     }
     
     private func setupViews() {
-        
         self.view.backgroundColor = .white
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -139,6 +138,8 @@ final class TwentyFiveDaysViewController: UIViewController {
         self.navigationItem.leftBarButtonItem?.tintColor = .black
         
         self.tableView.separatorColor = .clear
+        
+        self.collectionView.showsHorizontalScrollIndicator = false
         
         self.view.addSubview(popLabel)
         self.view.addSubview(locationLabel)

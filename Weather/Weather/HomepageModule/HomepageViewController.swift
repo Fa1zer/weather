@@ -58,7 +58,6 @@ final class HomepageViewController: UIViewController {
         
         view.currentPageIndicatorTintColor = .black
         view.pageIndicatorTintColor = .systemGray2
-        view.addTarget(self, action: #selector(pageControllDidUse(_:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -169,6 +168,7 @@ final class HomepageViewController: UIViewController {
     private let firstGroupeStackView: UIStackView = {
         let view = UIStackView()
         
+        view.spacing = 1
         view.axis = .horizontal
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -178,6 +178,7 @@ final class HomepageViewController: UIViewController {
     private let secondGroupeStackView: UIStackView = {
         let view = UIStackView()
         
+        view.spacing = 1
         view.axis = .horizontal
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -188,6 +189,7 @@ final class HomepageViewController: UIViewController {
     private let thirdGroupeStackView: UIStackView = {
         let view = UIStackView()
         
+        view.spacing = 1
         view.axis = .horizontal
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -310,6 +312,7 @@ final class HomepageViewController: UIViewController {
     private let tableView: UITableView = {
         let view = UITableView()
         
+        view.separatorColor = .clear
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -366,14 +369,14 @@ final class HomepageViewController: UIViewController {
         )
         self.navigationItem.leftBarButtonItem?.tintColor = .black
         self.navigationItem.rightBarButtonItem?.tintColor = .black
-        
-        self.tableView.separatorColor = .clear
-        self.tableView.showsVerticalScrollIndicator = false
-        
+                
         self.scrollView.showsVerticalScrollIndicator = false
+        self.collectionView.showsHorizontalScrollIndicator = false
         
         self.twentyFourHoursHeaderView.buttonAction = self.buttonAction
-                
+        
+        self.pageConrol.addTarget(self, action: #selector(self.pageControllDidUse(_:)), for: .valueChanged)
+        
         self.view.addSubview(scrollView)
         self.view.addSubview(plusImageView)
         
@@ -398,18 +401,14 @@ final class HomepageViewController: UIViewController {
         secondStackView.addArrangedSubview(bigGroupeStackView)
         secondStackView.addArrangedSubview(informationLabel)
         
-        firstGroupeStackView.addArrangedSubview(cloudyImageView)
-        firstGroupeStackView.addArrangedSubview(numberLabel)
+        bigGroupeStackView.addArrangedSubview(cloudyImageView)
+        bigGroupeStackView.addArrangedSubview(numberLabel)
         
-        secondGroupeStackView.addArrangedSubview(windImageView)
-        secondGroupeStackView.addArrangedSubview(windSpeedLabel)
+        bigGroupeStackView.addArrangedSubview(windImageView)
+        bigGroupeStackView.addArrangedSubview(windSpeedLabel)
         
-        thirdGroupeStackView.addArrangedSubview(humidityImageView)
-        thirdGroupeStackView.addArrangedSubview(humidityLabel)
-        
-        bigGroupeStackView.addArrangedSubview(firstGroupeStackView)
-        bigGroupeStackView.addArrangedSubview(secondGroupeStackView)
-        bigGroupeStackView.addArrangedSubview(thirdGroupeStackView)
+        bigGroupeStackView.addArrangedSubview(humidityImageView)
+        bigGroupeStackView.addArrangedSubview(humidityLabel)
         
         plusImageView.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -426,7 +425,6 @@ final class HomepageViewController: UIViewController {
         }
         
         secondStackView.snp.makeConstraints { make in
-            make.width.equalTo(205)
             make.centerX.equalToSuperview()
             make.top.equalTo(elipseImageView).inset(30)
             make.bottom.equalToSuperview().inset(15)
@@ -468,22 +466,6 @@ final class HomepageViewController: UIViewController {
             make.height.equalTo(bigGroupeStackView)
             make.height.equalTo(informationLabel)
         }
-        
-        bigGroupeStackView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-        }
-        
-        firstGroupeStackView.snp.makeConstraints { make in
-            make.width.equalTo(45)
-        }
-
-        secondGroupeStackView.snp.makeConstraints { make in
-            make.width.equalTo(90)
-        }
-
-        thirdGroupeStackView.snp.makeConstraints { make in
-            make.width.equalTo(55)
-        }
 
         sunriseTimeLabel.snp.makeConstraints { make in
             make.centerX.equalTo(elipseImageView.snp.leading)
@@ -509,17 +491,17 @@ final class HomepageViewController: UIViewController {
         
         tableView.snp.makeConstraints { make in
             make.trailing.leading.equalToSuperview()
-            make.top.equalTo(collectionView.snp.bottom).inset(-10)
+            make.top.equalTo(collectionView.snp.bottom).inset(-20)
             make.bottom.equalToSuperview()
-            make.bottom.equalTo(self.view)
+            make.bottom.equalTo(self.view).inset(20)
         }
         
         cloudyImageView.snp.makeConstraints { make in
-            make.width.equalTo(26)
+            make.width.equalTo(30)
         }
         
         windImageView.snp.makeConstraints { make in
-            make.width.equalTo(30)
+            make.width.equalTo(40)
         }
         
         humidityImageView.snp.makeConstraints { make in
@@ -626,7 +608,7 @@ final class HomepageViewController: UIViewController {
         }
         
     }
-    
+        
     @objc private func rightBarButtonDidTap() {
         
         let alert = UIAlertController(title: "Введите название города", message: nil,

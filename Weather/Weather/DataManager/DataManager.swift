@@ -14,23 +14,14 @@ import SwiftUI
 final class DataManager {
     
     init() {
-                
-        do {
-            
-            let realm = try Realm()
-            
-            for data in realm.objects(Weather.self) {
-                
-                self.getAllCache(data: data.allWeather, name: data.name)
-                
-            }
-            
-        } catch {
-            print(error.localizedDescription)
-        }
+        guard let realm = self.realm else { return }
         
+        for data in realm.objects(Weather.self) {
+            self.getAllCache(data: data.allWeather, name: data.name)
+        }
     }
     
+    private let realm = try? Realm()
     private let urlConstructor = URLConstructor.standart
     private let userDefaults = UserDefaults.standard
     
@@ -239,13 +230,11 @@ final class DataManager {
                     allStringWeather.name = name
                     
                     do {
-                        
-                        let realm = try Realm()
+                        guard let realm = self.realm else { return }
                         
                         realm.beginWrite()
                         realm.add(allStringWeather)
                         try realm.commitWrite()
-                        
                     } catch {
                         print(error.localizedDescription)
                     }

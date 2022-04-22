@@ -18,7 +18,6 @@ class TwentyFourHoursHeaderView: UIView {
         button.titleLabel?.text = "Подробнее не 24 часа"
         button.tintColor = .black
         button.backgroundColor = .clear
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 16)
         
@@ -40,6 +39,8 @@ class TwentyFourHoursHeaderView: UIView {
     private func setupViews() {
         
         self.backgroundColor = .white
+        
+        self.twentyFourHoursButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         
         self.addSubview(twentyFourHoursButton)
         
