@@ -58,7 +58,7 @@ final class URLConstructor {
         
         var url = "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&appid=\(self.apiKey)&lang=ru&exclude=alerts"
         
-        if userDefults.string(forKey: "speed") == "Km" || userDefults.string(forKey: "temperature") == "C" {
+        if (self.userDefults.string(forKey: "speed") == "Km" && self.userDefults.string(forKey: "temperature") == "C") || Locale.current.usesMetricSystem {
             url += "&units=metric"
             
             self.userDefults.set("Km", forKey: "speed")
