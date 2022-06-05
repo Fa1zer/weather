@@ -42,9 +42,11 @@ final class SettingsViewModel: Coordinatable {
         
         switch number{
         case 0:
-            userDefaults.set("C", forKey: "temperature")
+            self.userDefaults.set("C", forKey: "temperature")
+            self.userDefaults.set("Km", forKey: "speed")
         case 1:
-            userDefaults.set("F", forKey: "temperature")
+            self.userDefaults.set("F", forKey: "temperature")
+            self.userDefaults.set("Mi", forKey: "speed")
         default:
             return
         }
@@ -55,9 +57,11 @@ final class SettingsViewModel: Coordinatable {
         
         switch number {
         case 0:
-            userDefaults.set("Mi", forKey: "speed")
+            self.userDefaults.set("Mi", forKey: "speed")
+            self.userDefaults.set("F", forKey: "temperature")
         case 1:
-            userDefaults.set("Km", forKey: "speed")
+            self.userDefaults.set("Km", forKey: "speed")
+            self.userDefaults.set("C", forKey: "temperature")
         default:
             return
         }

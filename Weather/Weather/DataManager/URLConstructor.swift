@@ -58,12 +58,16 @@ final class URLConstructor {
         
         var url = "https://api.openweathermap.org/data/2.5/onecall?lat=\(lat)&lon=\(lon)&appid=\(self.apiKey)&lang=ru&exclude=alerts"
         
-        if userDefults.string(forKey: "speed") == "Km" || userDefults.string(forKey: "temperature") == "C" { url += "&units=metric" } else {
+        if (self.userDefults.string(forKey: "speed") == "Km" && self.userDefults.string(forKey: "temperature") == "C") || Locale.current.usesMetricSystem {
+            url += "&units=metric"
             
             self.userDefults.set("Km", forKey: "speed")
             self.userDefults.set("C", forKey: "temperature")
-            
+        } else {
             url += "&units=imperial"
+            
+            self.userDefults.set("Mi", forKey: "speed")
+            self.userDefults.set("F", forKey: "temperature")
         }
         
         guard let unwarpURL = URL(string: url) else { return URL(fileURLWithPath: "") }

@@ -99,7 +99,6 @@ final class OnboardingViewController: UIViewController {
         button.titleLabel?.textAlignment = .right
         button.tintColor = .white
         button.backgroundColor = .clear
-        button.addTarget(self, action: #selector(disagreeButtonDidTap), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -114,7 +113,6 @@ final class OnboardingViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.addTarget(self, action: #selector(agreeButtonDidTap), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -144,6 +142,9 @@ final class OnboardingViewController: UIViewController {
     
     private func setupViews() {
         self.view.backgroundColor = UIColor(red: 0.125, green: 0.306, blue: 0.78, alpha: 1)
+        
+        self.disagreeButton.addTarget(self, action: #selector(disagreeButtonDidTap), for: .touchUpInside)
+        self.agreeButton.addTarget(self, action: #selector(agreeButtonDidTap), for: .touchUpInside)
         
         self.view.addSubview(scrollView)
         

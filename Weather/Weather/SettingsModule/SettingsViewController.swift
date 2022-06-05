@@ -102,7 +102,6 @@ final class SettingsViewController: UIViewController {
         
         view.selectedSegmentTintColor = UIColor(red: 0.125, green: 0.306, blue: 0.78, alpha: 1)
         view.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        view.addTarget(self, action: #selector(didChangeFirst(_:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -124,7 +123,6 @@ final class SettingsViewController: UIViewController {
         
         view.selectedSegmentTintColor = UIColor(red: 0.125, green: 0.306, blue: 0.78, alpha: 1)
         view.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        view.addTarget(self, action: #selector(didChangeSecond(_:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -146,7 +144,6 @@ final class SettingsViewController: UIViewController {
         
         view.selectedSegmentTintColor = UIColor(red: 0.125, green: 0.306, blue: 0.78, alpha: 1)
         view.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        view.addTarget(self, action: #selector(didChangeThird(_:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -168,7 +165,6 @@ final class SettingsViewController: UIViewController {
         
         view.selectedSegmentTintColor = UIColor(red: 0.125, green: 0.306, blue: 0.78, alpha: 1)
         view.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        view.addTarget(self, action: #selector(didChangeFourth(_:)), for: .valueChanged)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -181,7 +177,6 @@ final class SettingsViewController: UIViewController {
         button.setTitle("Установить", for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(buttonDidTap), for: .touchUpInside)
         button.backgroundColor = UIColor(red: 0.949, green: 0.431, blue: 0.067, alpha: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -191,7 +186,7 @@ final class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let select = viewModel.selectSettingsNow()
+        let select = self.viewModel.selectSettingsNow()
         
         self.temperatureSegmetalConroll.selectedSegmentIndex = select.temperature == "C" ? 0 : 1
         self.windSpeedSegmetalConroll.selectedSegmentIndex = select.speed == "Km" ? 1 : 0
@@ -206,8 +201,13 @@ final class SettingsViewController: UIViewController {
     }
     
     private func setupViews() {
-        
         self.view.backgroundColor = UIColor(red: 0.125, green: 0.306, blue: 0.78, alpha: 1)
+        
+        self.saveButton.addTarget(self, action: #selector(buttonDidTap), for: .touchUpInside)
+        self.temperatureSegmetalConroll.addTarget(self, action: #selector(didChangeFirst(_:)), for: .valueChanged)
+        self.windSpeedSegmetalConroll.addTarget(self, action: #selector(didChangeSecond(_:)), for: .valueChanged)
+        self.timeSegmetalConroll.addTarget(self, action: #selector(didChangeThird(_:)), for: .valueChanged)
+        self.notificationsSegmetalConroll.addTarget(self, action: #selector(didChangeFourth(_:)), for: .valueChanged)
         
         self.view.addSubview(containerView)
         
