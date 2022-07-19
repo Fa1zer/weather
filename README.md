@@ -1,4 +1,4 @@
-# ****Weather Pet Project****
+# ****Just Weather****
 
 #### Приложение прогноз погоды. Использует api: [OpenWeatherMap](https://openweathermap.org/api) (при запросах использовать VPN). Менеджер зависимостей - [CocoaPods](https://github.com/CocoaPods/CocoaPods).
 
